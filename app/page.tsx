@@ -106,7 +106,7 @@ async function authenticateUser(identifier: string, password: string, mode: Logi
 export default function AdminLogin() {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState<LoginMode>('admin')
-  const [adminIdentifier, setAdminIdentifier] = useState(OFFICIAL_ADMIN_EMAIL)
+  const [adminIdentifier, setAdminIdentifier] = useState('')
   const [adminPassword, setAdminPassword] = useState('')
   const [showAdminPassword, setShowAdminPassword] = useState(false)
   const [staffIdentifier, setStaffIdentifier] = useState('')
@@ -236,13 +236,13 @@ export default function AdminLogin() {
             <form onSubmit={handleAdminLogin} className="space-y-6">
               <div>
                 <label className="block text-right text-slate-700 font-semibold mb-2">
-                  البريد الإلكتروني الرسمي للأدمن
+                  البريد الإلكتروني للأدمن
                 </label>
                 <input
                   type="email"
                   value={adminIdentifier}
                   onChange={(e) => setAdminIdentifier(e.target.value)}
-                  placeholder={OFFICIAL_ADMIN_EMAIL}
+                  placeholder="البريد الإلكتروني الرسمي"
                   className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-right"
                   required
                 />
@@ -299,7 +299,7 @@ export default function AdminLogin() {
                   type="text"
                   value={staffIdentifier}
                   onChange={(e) => setStaffIdentifier(e.target.value)}
-                  placeholder="staff@example.com أو 01xxxxxxxxx"
+                  placeholder="البريد الإلكتروني أو رقم الموبايل"
                   className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-right"
                   required
                 />
@@ -372,7 +372,7 @@ export default function AdminLogin() {
 
           <div className="space-y-4 text-sm">
             <div className="rounded-2xl bg-white/10 p-4">
-              الأدمن الرسمي: <span className="font-semibold" dir="ltr">{OFFICIAL_ADMIN_EMAIL}</span>
+              الدخول للأدمن يتم عبر الحساب الرسمي المخصص له فقط.
             </div>
             <div className="rounded-2xl bg-white/10 p-4">
               دخول الموظفين يدعم البريد الإلكتروني أو رقم الموبايل بنفس منطق التطبيق الرئيسي.
@@ -389,9 +389,9 @@ export default function AdminLogin() {
           <div className="w-full max-w-lg rounded-3xl bg-white p-8 shadow-2xl">
             <div className="mb-6 text-right">
               <h2 className="text-2xl font-bold text-slate-900">إعادة تعيين كلمة المرور</h2>
-              <p className="text-slate-600 text-sm mt-2">
-                اكتب البريد الإلكتروني أو رقم الموبايل المرتبط بالحساب، وسنرسل رابط إعادة التعيين إلى حساب Firebase الرسمي.
-              </p>
+                <p className="text-slate-600 text-sm mt-2">
+                  اكتب البريد الإلكتروني أو رقم الموبايل المرتبط بالحساب، وسنرسل رابط إعادة التعيين إلى حساب Firebase الرسمي.
+                </p>
             </div>
 
             <form onSubmit={handlePasswordReset} className="space-y-4">
@@ -403,7 +403,7 @@ export default function AdminLogin() {
                   type="text"
                   value={resetIdentifier}
                   onChange={(e) => setResetIdentifier(e.target.value)}
-                  placeholder="teacher@example.com أو 01xxxxxxxxx"
+                  placeholder="البريد الإلكتروني أو رقم الموبايل"
                   className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 text-right"
                   required
                 />
@@ -427,6 +427,7 @@ export default function AdminLogin() {
                   type="button"
                   onClick={() => {
                     setShowResetModal(false)
+                    setResetIdentifier('')
                     setResetError('')
                   }}
                   className="w-full sm:w-auto bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-lg transition duration-200"
